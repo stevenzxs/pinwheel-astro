@@ -1,6 +1,6 @@
 {
   "site": {
-    "title": "Pinwheel Astro",
+    "title": "隐私计算平台",
     "base_url": "https://pinwheel-astro.vercel.app",
     "base_path": "/",
     "trailing_slash": false,
@@ -19,7 +19,7 @@
 
   "call_to_action": {
     "title": "Helping teams in the world with focus",
-    "description": "Lorem ipsum dolor sit sed dmi amet, consectetur adipiscing. Cdo tellus, sed condimentum volutpat.",
+    "description": "XXX专注于提供金融级隐私计算技术及产品。公司践行“让数据价值安全高效流动”的使命，通过隐私计算构建数据价值交换的“彩虹桥”，实现数据价值的发现、数据价值的匹配与交易、数据价值的安全高效交换和数据价值的再创造，推动数据要素市场健康稳定高速发展。",
     "button": {
       "label": "Download The Theme",
       "link": "https://themefisher.com/astro-themes/pinwheel-astro"
@@ -33,12 +33,12 @@
   },
 
   "params": {
-    "footer_description": "Lorem ipsum dolor sit sed dmi amet, consectetur adipiscing. Cdo tellus, sed condimentum volutpat.",
-    "email": "info@andromeda.io",
-    "location": "2118 Thornridge Cir. Syracuse, Connecticut 35624",
-    "phone": "+704-555-0127",
+    "footer_description": "公司践行“让数据价值安全高效流动”的使命，通过隐私计算构建数据价值交换的“彩虹桥”，实现数据价值的发现、数据价值的匹配与交易、数据价值的安全高效交换和数据价值的再创造，推动数据要素市场健康稳定高速发展。",
+    "email": "邮箱：xxontactme@tru.cn",
+    "location": "地址：浙江省杭州市余杭区西溪艺术村水墨西溪xx号",
+    "phone": "电话：0271-16112802",
     "contact_form_action": "#",
-    "copyright": "Copyright © 2023 a theme by [Themefisher](https://themefisher.com)"
+    "copyright": "版权所有© xxx（杭州）科技有限公司"
   },
 
   "metadata": {

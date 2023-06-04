@@ -1,15 +1,15 @@
 {
   "main": [
     {
-      "name": "Home",
+      "name": "首页",
       "url": "/"
     },
     {
-      "name": "About",
+      "name": "关于我们",
       "url": "/about"
     },
     {
-      "name": "Blog",
+      "name": "博客",
       "url": "/blog"
     },
     {
@@ -59,18 +59,18 @@
       ]
     },
     {
-      "name": "Contact",
+      "name": "联系我们",
       "url": "/contact"
     }
   ],
 
   "footer": [
     {
-      "name": "About",
+      "name": "关于我们",
       "url": "/about"
     },
     {
-      "name": "Contact",
+      "name": "联系我们",
       "url": "/contact"
     },
     {

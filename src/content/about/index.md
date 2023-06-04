@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "关于我们"
 page_title: "About our company"
 buttons:
   - label: Download The Theme
