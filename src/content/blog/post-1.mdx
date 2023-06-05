@@ -1,24 +1,124 @@
 ---
-title: How Video Analytics Can Help Understand and Increase
-subtitle: Mauris blandit aliquet elit, eget tincidunt nibh dolor sit amet,
+title: Algorithm
+subtitle: 常见算法
 image: "/images/posts/post-5.png"
-author: Abdullah Al Shifat
-date: 2022-04-04T05:00:00Z
-categories: ["development", "design"]
+author: stevenzxs
+date: 2023-06-05T05:00:00Z
+categories: ["algorithm"]
 featured: false
 draft: false
 ---
+---
+Java中的Comparable与Comparator
+---
+`Comparable<T>和Comparator<T>`两个泛型接口的功能都是比较器，可以用于比较和集合排序。泛型使两个接口具有普适性，意味着可以针对不同类实现两个接口以获得比较功能。
+#### Comparable
+Comparable接口定义在java.lang.Comparable中，接口中只包括compareTo一个函数。根据规约，如果调用compareTo的对象小于作为参数的对象，函数返回负整数，等于返回零，大于返回正整数。
 
-Laoreet mauris odio ut nec. Nisl, sed adipiscing dignissim arcu placerat ornare pharetra nec in. Ultrices in nisl potenti vitae tempus. Auctor consectetur luctus eu in amet sagittis. Dis urna, vel hendrerit convallis Senectus feugiat faucibus commodo egestas leo vitae in morbi. Enim arcu dignissim mauris, eu, eget
-
-Pharetra odio amet pellentesque. Egestas nisi adipiscing sed in lectus. Vitae ultrices malesuada aliquet Faucibus consectetur tempus adipiscing vitae. Nec blandit tincidunt nibh nisi, quam volutpat. In lacus laoreet diam risus. Mauris, risus faucibus sagittis sagittis tincidunt id justo. Diam massa pretium consequat mauris viverra. Sagittis eu libero
+comparTo函数的规约中强烈建议如果一个class实现了Comparable接口，那么应该有(x.compareTo(y)===0)==(x.equals(y))
+Comparable接口
+```
+public interface Comparable<T> {
+  public int compareTo(T o);
+}
+```
+编写一个类时可以通过实现Comparable接口将比较代码嵌入自身类中，让类自身具有比较功能，即支持自比较。在String等类型的类中都实现了Comparable接口。
+#### Comparator
+Comparator接口在java.util.Comparator中，实现Comparator接口的类具有比较器的功能。Comparator接口中包括很多与比较相关的函数，这里主要关注其中的compare函数。
+```
+...
+int compare(T x,T y);
+...
+```
+compare函数，当`x<y`时返回一个负整数，`x=y`时返回零，`x>y`时返回正整数。规约中也建议两个对象x,y应满足(compare(x,y)==0)==(x.equals(y))。
+Coparator接口一般在一个独立的类中实现，这个类的对象作为对象作为比较器使用。Comparator体现了**策略模式**:针对同一类，不同的Comparator实现可以提供不同的比较方法。可以通过委派，在运行时动态传入需要使用的比较方法。
 
 <Blockquote name="Alexender Smith">
-  A wise girls her limit to touch.To Repellat neque praesentium .The me an idea,
-  so I as quickly To get.
+  Comparable与Comparator的区别<br /><br />
+  Comparable是一个内比较器，在实现Comparable接口的ADT内部重写compareTo方法。实现了Comparable的类具有自比较功能，类的一个对象自己就可以通过compareTo方法与类中另一个对象(仍是自身)进行比较。<br /><br />
+  Comparator是一个外比较器，需要构建新的Comparator类来实现。作为compare方法的参数的两个对象自身可以不具备自比较功能，实现Comparator的类可以被看作一种算法的实现，作为专用的比较器为其提供比较方式。<br /><br />
+  实现了Comparable接口的类对象构成的list可以直接使用Collections.sort(list)进行排序。如果list中元素所处类没有实现Comparable接口或实现了comparable接口但想要以其他专门规则进行排序，需要使用Collections.sort(list,comparator)。<br /><br />
 </Blockquote>
+  从Collections.Sort看Comparable与Comparator<br />
+  在Collection类中有重载方法sort实现排序功能。
+  ```
+  ...
+  public static <T extends Comparable<? super T>> void sort(List<T> list){ list.sort(null);}
+  public static <T> void sort(List<T> list, Comparator<? super T> c){ list.sort(c);}
+  ...
+  ```
+  第一个Sort方法只要求一个参数list,方法的功能是按自然顺序对list中的元素进行排序。第二个Sort方法要求除list外还应有比较器c,方法的功能使用比较器c定义的专门规则进行排序。
+  实际上在List接口中实现的sort方法还进一步调用了Arrays类中的sort方法。Arrays类中针对多种元素类型的list和提供的不同参数信息重载了多种sort方法，部分又进一步调用了快排等排序功能的类中的函数。
+  在Arrays类中最受关注的应该是下面这部分：
+  ```
+  static final class NaturalOrder implements Comparator<Object>{
+    public int compare(Object first,Object second) { return ((Comparable<Object>)first).compareTo(second); }
+    static final NaturalOrder INSTANCE = new NaturalOrder();
+  }
+  ```
+  Arrays中自己定义了一个比较器NatrualOrder，其实例为NaturalOrder.INSTANCE,比较方式是使用待比较的list中元素所属类中的compareTo方法，比较器名就是自然顺序。
+  考虑sort方法的实现过程。除了基本类型排序最终使用忆拓待方法进行排序外，对于大部分的其他类型元素进行排序时，最终发挥比较功能的方法大多需要一个比较器。如果调用Collections.sort时不提供比较器，则list接口中的sort方法传递给Arrays中被调用的sort方法的比较器为null.Arrays中的sort会不提供比较器，则list接口中的sort方法传递给Arrays中被调用的sort方法的比较器为null。Arrays中的sort方法会判断调用者是否提供了比较器。如果提供了比较器，Arrays中的方法在调用其他方法时将提供的比较器逐层传递，最终发挥实际排序功能的方法会用此比较器比较排序，排序时使用的比较方法是Comparator中的compare.如果没有提供比较器，即比较器参数值为null,在调用最终发挥比较功能的方法时会默认将NatrualOrder.INSTANCE作为比较器去调用，这样最终发挥实际排序功能的方法排序后得到的排序结果是按自然顺序进行的，实际排序时使用的比较方法是Comparable中的compareTo.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nec et ipsum ullamcorper venenatis fringilla. Pretium, purus eu nec vulputate vel habitant egestas. Congue ornare at ipsum, viverra. Vitae magna faucibus eros, lectus sociis. Etiam nunc amet id dignissim. Feugiat id tempor vel sit in ornare turpis posuere. Eu quisque integer non rhoncus elementum vel. Quis nec viverra lectus augue nec praesent volutpat tortor. Ipsum eget sed tempus luctus nisl. Ut etiam molestie mattis at faucibus mi at pellentesque. Pellentesque morbi nunc, curabitur arcu euismod suscipit. Duis mi sapien, nisl, pulvinar donec non dictum
+#### 使用实例
+```
+package sort_20230605;
 
-Laoreet mauris odio ut nec. Nisl, sed adipiscing dignissim arcu placerat ornare pharetra nec in. Ultrices in nisl potenti vitae tempus. Auctor consectetur luctus eu in amet sagittis. Dis urna, vel hendrerit convallis cursus id.
-Senectus feugiat faucibus commodo egestas leo vitae in morbi. Enim arcu dignissim mauris, eu, eget pharetra odio amet pellentesque. Egestas nisi adipiscing sed in lectus. Vitae ultrices malesuada aliquet dignissim. Faucibus non tristique eu.
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class Example implements Comparable<Example>{
+    int first;
+    int second;
+
+    public static class Comparator1 implements Comparator<Example> {
+        @Override
+        public int compare(Example x,Example y){
+            if( x.first < y.first )return -1;
+            else if( x.first > y.first )return 1;
+            else return 0;
+        }
+    }
+
+    public static class Comparator2 implements Comparator<Example> {
+        @Override
+        public int compare(Example x,Example y){
+            if( x.second < y.second )return -1;
+            else if( x.second > y.second )return 1;
+            else return 0;
+        }
+    }
+
+    public Example(int first,int second){
+        this.first = first;
+        this.second = second;
+    }
+
+    @Override
+    public int compareTo(Example t){
+        if( this.first < t.first )return -1;
+        else if( this.first > t.first )return 1;
+        else return 0;
+    }
+
+    public static void main(String[] args){
+        Example ta = new Example(1,2);
+        Example tc = new Example(3,2);
+        Example tb = new Example(2,2);
+        List<Example> list = new ArrayList<>();
+        list.add(tb);
+        list.add(ta);
+        list.add(tc);
+        Collections.sort(list);
+        for( Example ex:list){
+            System.out.println(ex.first);
+        }
+        System.out.println( ta.compareTo(tb) );
+        System.out.println(new Example.Comparator1().compare(tb,ta));
+        System.out.println(new Example.Comparator2().compare(tb,ta));
+    }
+}
+```
+
+
