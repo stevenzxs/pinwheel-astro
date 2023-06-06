@@ -1,0 +1,50 @@
+---
+title: 选择算法
+subtitle: 常见算法
+image: "/images/posts/post-4.png"
+author: stevenzxs
+date: 2023-06-06T05:00:00Z
+categories: ["algorithm"]
+featured: false
+draft: false
+---
+```
+package sort_20230605;
+import java.util.Arrays;
+
+public class SelectSort {
+    public void sort(Example [] a){
+        for( int i=0; i< a.length; ++i ){
+            int t = i;
+            for(int j=i+1; j<a.length; ++j){
+                if( a[t].compareTo(a[j]) > 0 ){
+                    t = j;
+                }
+            }
+            Example ob = a[i];
+            a[i] = a[t];
+            a[t] = ob;
+        }
+    }
+
+   public static void main(String[] args){
+      Example[] a = {
+          new Example(3,2),
+          new Example(1,2),
+          new Example(7,2),
+          new Example(5,2)
+      };
+      SelectSort t = new SelectSort();
+      System.out.println(Arrays.toString(a));
+      t.sort(a);
+      System.out.println(Arrays.toString(a));
+   }
+}
+```
+
+<Blockquote name="stevenzxs">
+  N个元素进行排序：
+  进行N次排序
+  每次排序，从剩余的元素中选出最小的元素，和左边第一个无序元素交换。
+</Blockquote>
+

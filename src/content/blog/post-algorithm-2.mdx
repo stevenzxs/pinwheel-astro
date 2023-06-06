@@ -1,0 +1,48 @@
+---
+title: 冒泡算法
+subtitle: 常见算法
+image: "/images/posts/post-6.png"
+author: stevenzxs
+date: 2023-06-06T05:00:00Z
+categories: ["algorithm"]
+featured: false
+draft: false
+---
+#### 冒泡算法
+```
+package sort_20230605;
+import java.util.Arrays;
+public class BubbleSort {
+    Example t;
+    void sort(Example [] a){
+        for(int i=0; i< a.length; ++i){
+            for(int j = i+1; j<a.length; ++j){
+                if(a[i].compareTo(a[j]) > 0 ){
+                    Example t = a[i];
+                    a[i] = a[j];
+                    a[j] = t;
+                }
+            }
+        }
+    }
+    public static void main(String[] args){
+        Example a[] = {
+            new Example(3,1),
+            new Example(5,1),
+            new Example(9,1),
+            new Example(1,1)
+        };
+        BubbleSort t = new BubbleSort();
+        System.out.println(Arrays.toString(a));
+        t.sort(a);
+        System.out.println(Arrays.toString(a));
+    }
+}
+```
+
+<Blockquote name="stenvenzxs">
+  N个元素冒泡排序：<br />
+  进行N次排序<br />
+  每次排序，左边元素有序，左边无序元素与右边相邻的元素进行比较，比右边的元素小则交换。 
+</Blockquote>
+
