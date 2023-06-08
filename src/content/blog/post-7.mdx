@@ -1,17 +1,45 @@
 ---
 title: 6 Product Launch Email Examples You’ll Want to Steal
-subtitle: Mauris blandit aliquet elit, eget tincidunt nibh dolor sit amet,
+subtitle: 进程与线程
 image: "/images/posts/post-11.png"
-author: Abdullah Al Shifat
-date: 2022-04-05T05:00:00Z
-categories: ["updates"]
+author: stevenzxs
+date: 2023-06-08T05:00:00Z
+categories: ["os"]
 featured: false
 draft: false
 ---
 
-Laoreet mauris odio ut nec. Nisl, sed adipiscing dignissim arcu placerat ornare pharetra nec in. Ultrices in nisl potenti vitae tempus. Auctor consectetur luctus eu in amet sagittis. Dis urna, vel hendrerit convallis Senectus feugiat faucibus commodo egestas leo vitae in morbi. Enim arcu dignissim mauris, eu, eget
+#### 进程与线程
 
-Pharetra odio amet pellentesque. Egestas nisi adipiscing sed in lectus. Vitae ultrices malesuada aliquet Faucibus consectetur tempus adipiscing vitae. Nec blandit tincidunt nibh nisi, quam volutpat. In lacus laoreet diam risus. Mauris, risus faucibus sagittis sagittis tincidunt id justo. Diam massa pretium consequat mauris viverra. Sagittis eu libero
+1. 程序
+   程序定义：指令+数据的结合体。例如：println("hello world"),println指令，"hello world"数据.
+2. 进程
+   进程定义：正在运行的程序的实例。
+   进程包括：地址空间(address space)。地址空间可以存放**可执行程序**，**数据**，**栈**，**寄存器**。
+   **寄存器**包括：程序计数器，堆栈指针，打开文件清单等。
+   
+   实际上只有一个物理程序计数器，每个程序要运行时，其逻辑程序计数器会装载到物理程序计数器中。当程序运行结束后，其物理程序计数器就会是真正的真正的程序计数器，然后再把它放回进程的逻辑计数器中。
+
+   一个挂起的进程包括：进程的地址空间、以及对应的进程表项。
+   进程间通信：合作完成某些作业的相关进程经常需要彼此通信来完成作业。
+
+   - 进程的创建方式：
+     1. 系统初始化init
+     2. 正在运行的程序执行了创建进程的系统调用fork,createProcess
+   - 进程的终止：
+     1. 正常退出 exit, exitProcess
+     2. 错误退出
+     3. 严重错误
+     4. 被其他进程杀死 kill, TerminateProcess
+   - 进程的状态：
+     1. 运行态：运行态指的就是进程实际占用CPU时间片运行时
+     2. 就绪态：就是可运行态，但因为其他进程正在运行而处于就绪状态
+     3. 阻塞态，除非某种外部事件发生，否则进程不能运行
+   - 进程间的切换：
+     操作系统为了执行进程间的切换，会维护着一张表格，这张表就是进程表process table。每个进程占用一个进程表项。该表项包含了进程状态的重要信息，包括程序计数器、堆栈指针、内存分配状况、所打开文件的状态、账号和高度信息，以及其他在进程由运行态转换到就绪态或阻塞态时所必须保存的信息，从而保证该进程随后能再次启动，就像从未被中断过一样。
+
+3. 线程 
+
 
 <Blockquote name="Alexender Smith">
   A wise girls her limit to touch.To Repellat neque praesentium .The me an idea,
